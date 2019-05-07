@@ -429,6 +429,24 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+                    <!--
+                        Prepares the property pointing to the JaCoCo runtime agent which
+                        is passed as VM argument when Maven the Failsafe plugin is executed.
+                    -->
+                    <execution>
+                        <id>pre-integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
 
@@ -521,6 +539,8 @@
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- Sets the VM argument line used when integration tests are run. -->
+                                    <argLine>${argLine}</argLine>
                                     <includes>
                                         <include>**/*IntegrationTest.java</include>
                                         <include>**/*IntegrationTests.java</include>
